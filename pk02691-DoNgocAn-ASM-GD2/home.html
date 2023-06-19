@@ -1,0 +1,55 @@
+<div class="body">
+  <div class="slide">
+   <div id="carouselExampleDark" class="carousel carousel-dark slide">
+     <div class="carousel-indicators">
+       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+     </div>
+     <div class="carousel-inner">
+       <div class="carousel-item active" data-bs-interval="10000">
+         <img src="images/slide1.jpg" class="d-block w-100" alt="">
+       </div>
+       <div class="carousel-item" data-bs-interval="2000">
+         <img src="images/slide2.jpg" class="d-block w-100" alt="...">
+        
+       </div>
+       <div class="carousel-item">
+         <img src="images/slide3.jpg" class="d-block w-100" alt="...">
+       
+       </div>
+     </div>
+     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+       <span class="visually-hidden">Previous</span>
+     </button>
+     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+       <span class="carousel-control-next-icon" aria-hidden="true"></span>
+       <span class="visually-hidden">Next</span>
+     </button>
+   </div>
+     <!--list game  -->
+   <div class="list-game ">
+     <div class="header">
+       <h1 class="header" style="color: white; margin-left: 610px;">LIST GAME</h1>
+       
+     </div>
+     <div class="container" >
+       <div class="row" >
+      
+         <div class="col-sm-3 mb-4"  ng-repeat="sp in dsSanPham   ">
+           <div class=" card text-white bg-dark mb-3" style="width: 18rem;">
+             <a href="#!/ctsp/{{sp.name}}/{{$index}}" ><img src="{{sp.img}}" class="card-img-top" alt="..."></a>
+             <div class="card-body">
+               <p class="card-text">
+                 <h3 id="name" class="nd" > 
+                   {{sp.name}}
+                 </br>
+                 <h1>{{sp.price |currency}}</h1>
+               </h3>
+               
+               </p>
+             </div>
+           </div>
+         </div>
+         

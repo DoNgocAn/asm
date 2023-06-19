@@ -1,0 +1,28 @@
+
+  <div >
+    <div class="body" style="margin:40px ;" >
+      <div class="container"ng-repeat="sp in dsSanPham | filter :name"  >
+        <div class="row" >
+          <div class="col-md-6"   >
+            <img src="{{sp.img}}" alt="">
+          </div>
+          <div class="col-md-6">
+            <h2>NAME:{{sp.name}}</h2>
+            <h4>PRICE:{{sp.price | currency}}</h4>
+            <h4>Mô tả : </h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor laboriosam maiores ut fugit temporibus iure quidem? Velit, voluptatum aut iste delectus, dolor eum unde animi id assumenda ipsam nostrum ex! Quibusdam perspiciatis laudantium dolores eaque at aperiam, consequuntur recusandae quia animi, repellat culpa rerum nobis accusantium non reprehenderit a velit fugit fugiat eveniet ab totam consectetur placeat? Repellat veniam nihil sit molestiae vel esse, magnam, minus quaerat vero officiis unde, doloremque molestias. Accusamus eveniet facere a molestias ipsum doloribus quaerat laudantium excepturi exercitationem et provident fuga, eaque adipisci iure sint! Incidunt facilis asperiores consectetur ab doloribus nostrum hic dolorum obcaecati!
+            </p>
+          </div>
+          <hr>
+          <button  class=" btn btn-sm btn-primary" ng-click="addCart(dsSanPham[index])" >Thêm vào giỏ hàng</button>
+        </div>
+        </div>
+     
+    </div>
+    
+
+   
+    
+  </div>
+

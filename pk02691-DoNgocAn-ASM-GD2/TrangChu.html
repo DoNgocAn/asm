@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href= "css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular.route.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-icons-1.10.3/bootstrap-icons.css" >
+    <link rel="stylesheet" href="style.css">
+    <title>Trang chủ</title>
+  </head>
+  <body ng-app="myapp">
+
+    <div class="menu-header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 navbar-dark bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="images/Blizzard-Logo-1994.png" alt="">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="TrangChu.html">GAME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="#">SHOP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="#">NEWS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="#">ESPORTS</a>
+              </li>            
+            </ul>           
+              <li class="nav-item ">
+                <a class="nav-link text-light " href="#!/dangnhap" >MY ACCOUT</a>
+              </li>    
+              <li class="nav-item ">
+                <span style="color: white;">SL :{{cart.length}}</span>
+                <a class="nav-link text-light " href="#!/giohang" >
+                  <i class="bi bi-cart" ></i>CART</a>
+              </li>     
+          </div>
+        </div>
+      </nav>
+    </div>
+
+        <ng-view></ng-view>
+
+    
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer">
+      <footer class="cuoi">
+        <div class="item-cuoi">
+            <div class="img">-cuoi<img src="https://estnn.com/wp-content/uploads/2020/03/blizzard-logo.jpg" alt=""></div>
+            <div class="mota-cuoi"><a class="title-cuoi" href=""> CAREESRS     |     ABOUT     |     SUPPORT      |     CONTACT     |     PRESS     |     API      </a>
+                <div class="allgame">
+                <p class="allgame">All game, one app:   <a  href="">Battle.net Desktop All</a>   </p>
+                </div>
+                <div class="history-cuoi">
+                    <p>©2022 BLIZZARD ENTERTAINMENT, INC. ALL RIGHTS RESERVED. <br>
+                        All trademarks referenced herein are the properties of their respective owners. <br>
+                        PRIVACY|LEGAL|TERMS|COOKIEPOLICY|COOKIESETTINGS
+                        </p>
+                </div>
+            </div>
+        </div>
+    </footer> 
+    </div>
+
+    <script>
+      var app=angular.module("myapp" ,["ngRoute"]);
+      
+      app.controller("myctrl" ,function($scope ,$http){
+        //săp xếp
+       
+        $http.get("products.json").then(
+
+          function(e){
+            $scope.dsSanPham=e.data;    
+          },
+           
+          function(e){
+            alert("loi");
+          }
+        );
+        $scope.sx="-price";
+        $scope.sortBy=function(what){
+          $scope.sx=what;
+        }
+              
+      });
+      app.controller("detailmyctrl" ,function($scope ,$http ,$routeParams,$rootScope) {
+        $http.get("products.json").then(
+          function(e){
+            $scope.dsSanPham=e.data;
+            $scope.name=$routeParams.name;
+          
+            
+          },
+          function(e){
+            alert("loi");
+          }
+        );
+        // thêm sp vào giỏ
+        var indexCart=0;
+        $scope.addCart = function (p) {
+            if (typeof $rootScope.cart == "undefined") {
+              $rootScope.cart = [];
+            }
+            if ($rootScope.cart.filter((i) => i.id == p.id).length == 0) {
+              $rootScope.cart.push(p);
+              $rootScope.cart[indexCart].quantity = 1;
+              indexCart++;
+              alert("Dẫ thêm sản phẩm vaò giỏ hàng")
+              
+            }
+          };
+          $rootScope.sumMoney = 0;
+          //Tính tổng tiền bên giỏ hàng
+          if (typeof $rootScope.cart != "undefined") {
+            //Có giỏ hàng mới tính tổng
+            for (var i = 0; i < $rootScope.cart.length; i++) {
+              $rootScope.sumMoney =
+                $rootScope.sumMoney +
+                $rootScope.cart[i].quantity * $rootScope.cart[i].price;
+            }
+          }
+          //Nhấn nút Cộng để thêm sản phẩm
+          $scope.addClick = function (index) {
+            $rootScope.cart[index].quantity =
+              $rootScope.cart[index].quantity + 1;
+            if (typeof $rootScope.cart != "undefined") {
+              $rootScope.sumMoney = 0;
+              for (var i = 0; i < $rootScope.cart.length; i++) {
+                $rootScope.sumMoney =
+                  $rootScope.sumMoney +
+                  $rootScope.cart[i].quantity * $rootScope.cart[i].price;
+              }
+            }
+          };
+          //Xóa sản phẩm trong giỏ hàng
+          $scope.delProduct = function (index) {
+            $rootScope.cart.splice(index, 1);
+            if (typeof $rootScope.cart != "undefined") {
+              $rootScope.sumMoney = 0;
+              for (var i = 0; i < $rootScope.cart.length; i++) {
+                $rootScope.sumMoney =
+                  $rootScope.sumMoney +
+                  $rootScope.cart[i].quantity * $rootScope.cart[i].price;
+              }
+            }
+          };
+           
+      });
+  
+      
+   
+      app.config(function($routeProvider ){
+        $routeProvider
+        .when("/ctsp/:name/:url",{
+          templateUrl:"ChiTietSp.html",
+          controller:"detailmyctrl"
+        })
+        
+        .when("/dangnhap",{
+          templateUrl:"DangNhap.html"
+        })
+        .when("/",{
+          templateUrl:"home.html",
+          controller:"myctrl"
+        })
+        .when("/giohang",{
+          templateUrl:"GioHang.html",
+          controller:"detailmyctrl"
+          
+        })
+      });
+   
+      
+    
+    </script>
+ 
+  </body>
+</html>
+
